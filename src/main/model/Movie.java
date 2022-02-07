@@ -34,11 +34,17 @@ public class Movie {
 
     // MODIFIES: this
     // EFFECTS: rates the movie on a 1 to 5 scale
-    public void rateMovie(int rating) {
-        if (rating >= 0) {
-            this.rating = rating;
+    public String rateMovie(int rating) {
+        this.rating = rating;
+
+        if (!(rating == 3)) {
+            if (rating < 3) {
+                return "Negative Review";
+            } else {
+                return "Positive Review";
+            }
         } else {
-            this.rating = 0;
+            return "Neutral Review";
         }
     }
 }

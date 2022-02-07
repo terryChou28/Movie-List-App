@@ -22,10 +22,13 @@ class MovieTest {
 
     @Test
     public void testRateMovie() {
-        myMovie.rateMovie(5);
+        assertEquals("Positive Review", myMovie.rateMovie(5));
         assertEquals(5, myMovie.getRating());
 
-        myMovie.rateMovie(-1);
-        assertEquals(0, myMovie.getRating());
+        assertEquals("Negative Review", myMovie.rateMovie(1));
+        assertEquals(1, myMovie.getRating());
+
+        assertEquals("Neutral Review", myMovie.rateMovie(3));
+        assertEquals(3, myMovie.getRating());
     }
 }
