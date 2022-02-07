@@ -1,7 +1,8 @@
 package model;
 
+// Represents a movie having a title, box office (in million dollars),
+// approval rating, and a user rating
 public class Movie {
-    private int id;
     private String title;
     private int boxOffice;
     private int approvalRating;
@@ -31,7 +32,13 @@ public class Movie {
         return rating;
     }
 
+    // MODIFIES: this
+    // EFFECTS: rates the movie on a 1 to 5 scale
     public void rateMovie(int rating) {
-        this.rating = rating;
+        if (rating >= 0) {
+            this.rating = rating;
+        } else {
+            this.rating = 0;
+        }
     }
 }

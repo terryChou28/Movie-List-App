@@ -24,5 +24,8 @@ class MovieTest {
     public void testRateMovie() {
         myMovie.rateMovie(5);
         assertEquals(5, myMovie.getRating());
+
+        myMovie.rateMovie(-1);
+        assertEquals(0, myMovie.getRating());
     }
 }
