@@ -38,4 +38,10 @@ class MovieTest {
         assertEquals("Not in a scale of 1 to 5", myMovie.rateMovie(6));
         assertEquals("Not in a scale of 1 to 5", myMovie.rateMovie(-1));
     }
+
+    @Test
+    public void testToString() {
+        assertTrue(myMovie.toString().contains("Title: Spider-Man: No Way Home, Box Office: 1744, " +
+                "Approval Rating: 93, User Rating: 0"));
+    }
 }

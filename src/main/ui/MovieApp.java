@@ -16,14 +16,16 @@ public class MovieApp {
         runMovieApp();
     }
 
+    // MODIFIES: this
+    // EFFECTS: processes user input
     private void runMovieApp() {
         boolean goOn = true;
         String option;
-        input = new Scanner(System.in);
-        wantToWatchMovies = new MovieList();
-        alreadyWatchedMovies = new MovieList();
+
+        setUp();
 
         System.out.println("\nWelcome to the Movie List Application!");
+
         while (goOn) {
             displayMenu();
             option = input.next();
@@ -34,6 +36,8 @@ public class MovieApp {
                 processOption(option);
             }
         }
+
+        System.out.println("\nThank you for using the application!");
     }
 
     public void displayMenu() {
@@ -42,8 +46,11 @@ public class MovieApp {
         System.out.println("\tr -> remove movie");
         System.out.println("\th -> highest rating movie");
         System.out.println("\tt -> rate movie");
+        System.out.println("\tv -> to view the list");
     }
 
+    // MODIFIES: this
+    // EFFECTS: processes user option
     private void processOption(String option) {
         switch (option) {
             case "a":
@@ -58,12 +65,25 @@ public class MovieApp {
             case "t":
                 toRate();
                 break;
+            case "v":
+                toView();
+                break;
             default:
                 System.out.println("Option not valid!");
                 break;
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets up movie lists
+    private void setUp() {
+        wantToWatchMovies = new MovieList();
+        alreadyWatchedMovies = new MovieList();
+        input = new Scanner(System.in);
+    }
+
+    // EFFECTS: prompts user to choose between a to-watch movie list
+    //          or an already watched movie list and returns it
     private MovieList chooseList() {
         String choice;
 
@@ -80,13 +100,16 @@ public class MovieApp {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds a movie to the movie list
     private void toAdd() {
         MovieList movies = chooseList();
         System.out.println("Please enter movie title to add: ");
-        String title = input.next();
-        System.out.println("Please enter the box office of the movie");
+        input.nextLine();
+        String title = input.nextLine();
+        System.out.println("Please enter the box office of the movie: ");
         int boxOffice = input.nextInt();
-        System.out.println("Please enter the approval rating of the movie");
+        System.out.println("Please enter the approval rating of the movie: ");
         int approvalRating = input.nextInt();
 
         Movie movie = new Movie(title, boxOffice, approvalRating);
@@ -98,6 +121,8 @@ public class MovieApp {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: removes a movie from the movie list
     private void toRemove() {
         MovieList myList = chooseList();
         List<Movie> movies = myList.getMovieList();
@@ -110,18 +135,19 @@ public class MovieApp {
         System.out.println("Please enter movie title to remove: ");
         String title = input.next();
 
-        int index = 0;
-        for (Movie m : movies) {
-            if (m.getTitle().equals(title)) {
-                index = movies.indexOf(m);
-            }
-        }
-        Movie movie = movies.get(index);
-
-        if (myList.removeMovie(movie)) {
+        if (myList.removeMovie(title)) {
             System.out.println("The movie has been removed");
         } else {
             System.out.println("Movie not on the list");
+        }
+    }
+
+    private void toView() {
+        MovieList myList = chooseList();
+        List<Movie> movies = myList.getMovieList();
+
+        for (Movie m : movies) {
+            System.out.println(m.toString());
         }
     }
 
@@ -152,12 +178,17 @@ public class MovieApp {
         System.out.println("Which movie do you want to rate: ");
 
         String title = input.next();
-        int index = 0;
+        int index = -1;
 
         for (Movie m : movies) {
             if (m.getTitle().equals(title)) {
                 index = movies.indexOf(m);
             }
+        }
+
+        if (index == -1) {
+            System.out.println("Movie not on the list");
+            return;
         }
 
         Movie movie = movies.get(index);

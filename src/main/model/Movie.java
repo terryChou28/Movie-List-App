@@ -1,6 +1,6 @@
 package model;
 
-// Represents a movie having a title, box office (in million dollars),
+// Represents a movie having a title, box office (in $millions),
 // approval rating, and a user rating
 public class Movie {
     private String title;
@@ -8,7 +8,8 @@ public class Movie {
     private int approvalRating;
     private int rating;
 
-    // EFFECTS: constructs a movie with the given title, box office (in million $),
+    // REQUIRES: title has a non-zero length, boxOffice and approvalRating >= 0
+    // EFFECTS: constructs a movie with the given title, box office (in $millions),
     //          and approval rating, also a user rating of 0
     public Movie(String title, int boxOffice, int approvalRating) {
         this.title = title;
@@ -48,5 +49,11 @@ public class Movie {
         } else {
             return "Not in a scale of 1 to 5";
         }
+    }
+
+    // EFFECTS: returns a string representation of a movie
+    public String toString() {
+        return "Title: " + title + ", Box Office: " + boxOffice + ", Approval Rating: "
+                + approvalRating + ", User Rating: " + rating;
     }
 }

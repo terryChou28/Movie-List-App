@@ -37,16 +37,26 @@ public class MovieList {
         return true;
     }
 
+    // REQUIRES: title has a non-zero length
     // MODIFIES: this
     // EFFECTS: removes movie from the list of movies and returns true,
     //          unless it's not in the list then returns false
-    public boolean removeMovie(Movie movie) {
-        if (movieList.contains(movie)) {
-            movieList.remove(movie);
-            return true;
-        } else {
+    public boolean removeMovie(String title) {
+        int index = -1;
+
+        for (Movie m : movieList) {
+            if (m.getTitle().equals(title)) {
+                index = movieList.indexOf(m);
+            }
+        }
+
+        if (index == -1) {
             return false;
         }
+
+        Movie movie = movieList.get(index);
+        movieList.remove(movie);
+        return true;
     }
 
     // REQUIRES: movieList cannot be empty

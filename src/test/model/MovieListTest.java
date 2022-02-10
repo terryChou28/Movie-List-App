@@ -47,22 +47,22 @@ class MovieListTest {
         myMovieList.addMovie(myMovie);
         myMovieList.addMovie(myMovie2);
         assertEquals(2, myMovieList.getNumMovies());
-        assertTrue(myMovieList.removeMovie(myMovie));
+        assertTrue(myMovieList.removeMovie("Spider-Man: No Way Home"));
         assertEquals(1, myMovieList.getNumMovies());
         assertFalse(myMovieList.contains(myMovie));
 
-        assertTrue(myMovieList.removeMovie(myMovie2));
+        assertTrue(myMovieList.removeMovie("Avengers: Endgame"));
         assertEquals(0, myMovieList.getNumMovies());
         assertFalse(myMovieList.contains(myMovie2));
     }
 
     @Test
     public void testRemoveMovieFailure() {
-        assertFalse(myMovieList.removeMovie(myMovie));
+        assertFalse(myMovieList.removeMovie("Avengers Endgame"));
 
         myMovieList.addMovie(myMovie);
         Movie m = new Movie("F9", 762, 59);
-        assertFalse(myMovieList.removeMovie(m));
+        assertFalse(myMovieList.removeMovie(m.getTitle()));
     }
 
     @Test
