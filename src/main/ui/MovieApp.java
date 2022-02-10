@@ -6,6 +6,7 @@ import model.MovieList;
 import java.util.List;
 import java.util.Scanner;
 
+// The Teller application is used as a reference for this project
 public class MovieApp {
     private MovieList wantToWatchMovies;
     private MovieList alreadyWatchedMovies;
@@ -133,7 +134,8 @@ public class MovieApp {
         }
 
         System.out.println("Please enter movie title to remove: ");
-        String title = input.next();
+        input.nextLine();
+        String title = input.nextLine();
 
         if (myList.removeMovie(title)) {
             System.out.println("The movie has been removed");
@@ -176,8 +178,9 @@ public class MovieApp {
         }
 
         System.out.println("Which movie do you want to rate: ");
+        input.nextLine();
 
-        String title = input.next();
+        String title = input.nextLine();
         int index = -1;
 
         for (Movie m : movies) {
