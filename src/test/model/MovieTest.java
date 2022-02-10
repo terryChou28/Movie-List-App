@@ -24,9 +24,13 @@ class MovieTest {
     public void testRateMovie() {
         assertEquals("Positive Review", myMovie.rateMovie(5));
         assertEquals(5, myMovie.getRating());
+        assertEquals("Positive Review", myMovie.rateMovie(4));
+        assertEquals(4, myMovie.getRating());
 
         assertEquals("Negative Review", myMovie.rateMovie(1));
         assertEquals(1, myMovie.getRating());
+        assertEquals("Negative Review", myMovie.rateMovie(0));
+        assertEquals(0, myMovie.getRating());
 
         assertEquals("Neutral Review", myMovie.rateMovie(3));
         assertEquals(3, myMovie.getRating());
