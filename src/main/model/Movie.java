@@ -33,18 +33,20 @@ public class Movie {
     }
 
     // MODIFIES: this
-    // EFFECTS: rates the movie on a 1 to 5 scale
+    // EFFECTS: rates the movie on a scale of one to five, ratings of 1 and 2
+    //          returns "Negative Review", 3 returns "Neutral Review", and
+    //          4 and 5 returns "Positive Review"
     public String rateMovie(int rating) {
         this.rating = rating;
 
-        if (!(rating == 3)) {
-            if (rating < 3) {
-                return "Negative Review";
-            } else {
-                return "Positive Review";
-            }
-        } else {
+        if (this.rating == 3) {
             return "Neutral Review";
+        } else if (this.rating < 3 && this.rating >= 0) {
+            return "Negative Review";
+        } else if (this.rating > 3 && this.rating <= 5) {
+            return "Positive Review";
+        } else {
+            return "Not in a scale of 1 to 5";
         }
     }
 }

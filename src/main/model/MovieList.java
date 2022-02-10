@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+// Represents a movie list
 public class MovieList {
     private List<Movie> movieList;
 
@@ -27,11 +28,13 @@ public class MovieList {
     // EFFECTS: adds movie to the list of movies and returns true,
     //          unless it's already in the list then returns false
     public boolean addMovie(Movie movie) {
-        if (!movieList.contains(movie)) {
-            movieList.add(movie);
-            return true;
+        for (Movie m : movieList) {
+            if (m.getTitle().equals(movie.getTitle())) {
+                return false;
+            }
         }
-        return false;
+        movieList.add(movie);
+        return true;
     }
 
     // MODIFIES: this
@@ -41,8 +44,9 @@ public class MovieList {
         if (movieList.contains(movie)) {
             movieList.remove(movie);
             return true;
+        } else {
+            return false;
         }
-        return false;
     }
 
     // REQUIRES: movieList cannot be empty

@@ -30,5 +30,7 @@ class MovieTest {
 
         assertEquals("Neutral Review", myMovie.rateMovie(3));
         assertEquals(3, myMovie.getRating());
+
+        assertEquals("Not in a scale of 1 to 5", myMovie.rateMovie(6));
     }
 }

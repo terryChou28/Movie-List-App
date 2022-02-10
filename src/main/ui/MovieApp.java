@@ -3,6 +3,7 @@ package ui;
 import model.Movie;
 import model.MovieList;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class MovieApp {
@@ -17,19 +18,20 @@ public class MovieApp {
 
     private void runMovieApp() {
         boolean goOn = true;
-        String command;
+        String option;
         input = new Scanner(System.in);
         wantToWatchMovies = new MovieList();
         alreadyWatchedMovies = new MovieList();
 
+        System.out.println("\nWelcome to the Movie List Application!");
         while (goOn) {
             displayMenu();
-            command = input.next();
+            option = input.next();
 
-            if (command.equals("q")) {
+            if (option.equals("q")) {
                 goOn = false;
             } else {
-                processCommand(command);
+                processOption(option);
             }
         }
     }
@@ -42,33 +44,45 @@ public class MovieApp {
         System.out.println("\tt -> rate movie");
     }
 
-    private void processCommand(String command) {
-        if (command.equals("a")) {
-            doAdd();
-        } else {
-            System.out.println("Selection not valid...");
+    private void processOption(String option) {
+        switch (option) {
+            case "a":
+                toAdd();
+                break;
+            case "r":
+                toRemove();
+                break;
+            case "h":
+                highestRating();
+                break;
+            case "t":
+                toRate();
+                break;
+            default:
+                System.out.println("Option not valid!");
+                break;
         }
     }
 
-    private MovieList selectList() {
-        String select = "";
+    private MovieList chooseList() {
+        String choice;
 
-        while (!(select.equals("w") || select.equals("a"))) {
+        do {
             System.out.println("w for want to watch movies");
             System.out.println("a for already watched movies");
-            select = input.next();
-        }
+            choice = input.next();
+        } while (!(choice.equals("w") || choice.equals("a")));
 
-        if (select.equals("w")) {
+        if (choice.equals("w")) {
             return wantToWatchMovies;
         } else {
             return alreadyWatchedMovies;
         }
     }
 
-    private void doAdd() {
-        MovieList select = selectList();
-        System.out.println("Please enter the title of movie to add: ");
+    private void toAdd() {
+        MovieList movies = chooseList();
+        System.out.println("Please enter movie title to add: ");
         String title = input.next();
         System.out.println("Please enter the box office of the movie");
         int boxOffice = input.nextInt();
@@ -76,6 +90,79 @@ public class MovieApp {
         int approvalRating = input.nextInt();
 
         Movie movie = new Movie(title, boxOffice, approvalRating);
-        select.addMovie(movie);
+
+        if (movies.addMovie(movie)) {
+            System.out.println("The movie has been added");
+        } else {
+            System.out.println("The move is already on the list");
+        }
+    }
+
+    private void toRemove() {
+        MovieList myList = chooseList();
+        List<Movie> movies = myList.getMovieList();
+
+        if (movies.isEmpty()) {
+            System.out.println("Wrong list");
+            return;
+        }
+
+        System.out.println("Please enter movie title to remove: ");
+        String title = input.next();
+
+        int index = 0;
+        for (Movie m : movies) {
+            if (m.getTitle().equals(title)) {
+                index = movies.indexOf(m);
+            }
+        }
+        Movie movie = movies.get(index);
+
+        if (myList.removeMovie(movie)) {
+            System.out.println("The movie has been removed");
+        } else {
+            System.out.println("Movie not on the list");
+        }
+    }
+
+    private void highestRating() {
+        MovieList movies = chooseList();
+        List<Movie> myList = movies.getMovieList();
+
+        if (myList.isEmpty()) {
+            System.out.println("Wrong list");
+            return;
+        }
+
+        Movie highest;
+        highest = movies.highestRatingMovie(movies.getMovieList());
+
+        System.out.println("The movie with the highest approval rating is: " + highest.getTitle());
+    }
+
+    private void toRate() {
+        MovieList myList = chooseList();
+        List<Movie> movies = myList.getMovieList();
+
+        if (movies.isEmpty()) {
+            System.out.println("Wrong list");
+            return;
+        }
+
+        System.out.println("Which movie do you want to rate: ");
+
+        String title = input.next();
+        int index = 0;
+
+        for (Movie m : movies) {
+            if (m.getTitle().equals(title)) {
+                index = movies.indexOf(m);
+            }
+        }
+
+        Movie movie = movies.get(index);
+        System.out.println("What is your rating on a 1 to 5 scale: ");
+        int rate = input.nextInt();
+        System.out.println("Your review is: " + movie.rateMovie(rate));
     }
 }

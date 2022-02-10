@@ -59,6 +59,10 @@ class MovieListTest {
     @Test
     public void testRemoveMovieFailure() {
         assertFalse(myMovieList.removeMovie(myMovie));
+
+        myMovieList.addMovie(myMovie);
+        Movie m = new Movie("F9", 762, 59);
+        assertFalse(myMovieList.removeMovie(m));
     }
 
     @Test
