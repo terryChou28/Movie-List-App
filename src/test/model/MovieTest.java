@@ -32,5 +32,6 @@ class MovieTest {
         assertEquals(3, myMovie.getRating());
 
         assertEquals("Not in a scale of 1 to 5", myMovie.rateMovie(6));
+        assertEquals("Not in a scale of 1 to 5", myMovie.rateMovie(-1));
     }
 }
