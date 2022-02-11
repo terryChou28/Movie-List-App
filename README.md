@@ -18,3 +18,4 @@
 - As a user, I want to be able to see which movie has the highest approval rating on the list
 
 The Teller app is used as a reference for this project
+https://github.students.cs.ubc.ca/CPSC210/TellerApp
