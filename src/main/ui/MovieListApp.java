@@ -7,19 +7,20 @@ import java.util.List;
 import java.util.Scanner;
 
 // The Teller application is used as a reference for this project
-public class MovieApp {
-    private MovieList wantToWatchMovies;
-    private MovieList alreadyWatchedMovies;
+// Movie list application
+public class MovieListApp {
+    private MovieList toWatchList;
+    private MovieList watchedList;
     private Scanner input;
 
-    // EFFECTS: runs the movie application
-    public MovieApp() {
-        runMovieApp();
+    // EFFECTS: runs the movie list application
+    public MovieListApp() {
+        runMovieListApp();
     }
 
     // MODIFIES: this
     // EFFECTS: processes user input
-    private void runMovieApp() {
+    private void runMovieListApp() {
         boolean goOn = true;
         String option;
 
@@ -41,6 +42,7 @@ public class MovieApp {
         System.out.println("\nThank you for using the application!");
     }
 
+    // EFFECTS: displays menu of options to user
     public void displayMenu() {
         System.out.println("\nPlease select from:");
         System.out.println("\ta -> add movie");
@@ -78,31 +80,13 @@ public class MovieApp {
     // MODIFIES: this
     // EFFECTS: sets up movie lists
     private void setUp() {
-        wantToWatchMovies = new MovieList();
-        alreadyWatchedMovies = new MovieList();
+        toWatchList = new MovieList();
+        watchedList = new MovieList();
         input = new Scanner(System.in);
     }
 
-    // EFFECTS: prompts user to choose between a to-watch movie list
-    //          or an already watched movie list and returns it
-    private MovieList chooseList() {
-        String choice;
-
-        do {
-            System.out.println("w for want to watch movies");
-            System.out.println("a for already watched movies");
-            choice = input.next();
-        } while (!(choice.equals("w") || choice.equals("a")));
-
-        if (choice.equals("w")) {
-            return wantToWatchMovies;
-        } else {
-            return alreadyWatchedMovies;
-        }
-    }
-
     // MODIFIES: this
-    // EFFECTS: adds a movie to the movie list
+    // EFFECTS: adds a movie to the chosen movie list
     private void toAdd() {
         MovieList movies = chooseList();
         System.out.println("Please enter movie title to add: ");
@@ -110,10 +94,10 @@ public class MovieApp {
         String title = input.nextLine();
         System.out.println("Please enter the box office of the movie: ");
         int boxOffice = input.nextInt();
-        System.out.println("Please enter the approval rating of the movie: ");
-        int approvalRating = input.nextInt();
+        System.out.println("Please enter Rotten Tomatoes' approval rating for the movie: ");
+        int rottenTomatoesRating = input.nextInt();
 
-        Movie movie = new Movie(title, boxOffice, approvalRating);
+        Movie movie = new Movie(title, boxOffice, rottenTomatoesRating);
 
         if (movies.addMovie(movie)) {
             System.out.println("The movie has been added");
@@ -123,13 +107,13 @@ public class MovieApp {
     }
 
     // MODIFIES: this
-    // EFFECTS: removes a movie from the movie list
+    // EFFECTS: removes a movie from the chosen movie list
     private void toRemove() {
         MovieList myList = chooseList();
         List<Movie> movies = myList.getMovieList();
 
         if (movies.isEmpty()) {
-            System.out.println("Wrong list");
+            System.out.println("Empty list");
             return;
         }
 
@@ -144,21 +128,28 @@ public class MovieApp {
         }
     }
 
+    // EFFECTS: views movies on the chosen movie list
     private void toView() {
         MovieList myList = chooseList();
         List<Movie> movies = myList.getMovieList();
+
+        if (movies.isEmpty()) {
+            System.out.println("Empty list");
+            return;
+        }
 
         for (Movie m : movies) {
             System.out.println(m.toString());
         }
     }
 
+    // EFFECTS: tells the user which movie has the highest approval rating on the chosen list
     private void highestRating() {
         MovieList movies = chooseList();
         List<Movie> myList = movies.getMovieList();
 
         if (myList.isEmpty()) {
-            System.out.println("Wrong list");
+            System.out.println("Empty list");
             return;
         }
 
@@ -168,35 +159,64 @@ public class MovieApp {
         System.out.println("The movie with the highest approval rating is: " + highest.getTitle());
     }
 
+    // MODIFIES: this
+    // EFFECTS: rates the movie on a scale of 1 to 5
     private void toRate() {
         MovieList myList = chooseList();
         List<Movie> movies = myList.getMovieList();
 
         if (movies.isEmpty()) {
-            System.out.println("Wrong list");
+            System.out.println("Empty list");
             return;
         }
 
         System.out.println("Which movie do you want to rate: ");
         input.nextLine();
-
         String title = input.nextLine();
+        int index;
+        index = getMovieIndex(movies, title);
+
+        if (index == -1) {
+            System.out.println("Movie not on the list");
+        } else {
+            Movie movie = movies.get(index);
+            System.out.println("What is your rating on a 1 to 5 scale: ");
+            int rate = input.nextInt();
+            System.out.println("Your review is: " + movie.rateMovie(rate));
+        }
+    }
+
+    // EFFECTS: prompts user to choose between a to-watch movie list
+    //          or an already watched movie list and returns it
+    private MovieList chooseList() {
+        String choice;
+
+        do {
+            System.out.println("w for a to-watch list");
+            System.out.println("d for watched list");
+            choice = input.next();
+        } while (!(choice.equals("w") || choice.equals("d")));
+
+        if (choice.equals("w")) {
+            return toWatchList;
+        } else {
+            return watchedList;
+        }
+    }
+
+    // REQUIRES: movies must not be empty, title has non-zero length
+    // MODIFIES: index
+    // EFFECTS: returns the index of the movie matching the given title on the movie list,
+    //          if not on the list returns -1 as the index
+    private int getMovieIndex(List<Movie> movies, String title) {
         int index = -1;
 
         for (Movie m : movies) {
             if (m.getTitle().equals(title)) {
                 index = movies.indexOf(m);
+                return index;
             }
         }
-
-        if (index == -1) {
-            System.out.println("Movie not on the list");
-            return;
-        }
-
-        Movie movie = movies.get(index);
-        System.out.println("What is your rating on a 1 to 5 scale: ");
-        int rate = input.nextInt();
-        System.out.println("Your review is: " + movie.rateMovie(rate));
+        return index;
     }
 }

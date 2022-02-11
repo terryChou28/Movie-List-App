@@ -20,10 +20,7 @@ public class MovieList {
         return movieList.size();
     }
 
-    public boolean contains(Movie movie) {
-        return movieList.contains(movie);
-    }
-
+    // REQUIRES: movie must not be null
     // MODIFIES: this
     // EFFECTS: adds movie to the list of movies and returns true,
     //          unless it's already in the list then returns false
@@ -65,10 +62,15 @@ public class MovieList {
         Movie highest = movieList.get(0);
 
         for (Movie m : movieList) {
-            if (m.getApprovalRating() > highest.getApprovalRating()) {
+            if (m.getRottenTomatoesRating() > highest.getRottenTomatoesRating()) {
                 highest = m;
             }
         }
         return highest;
+    }
+
+    // EFFECTS: returns true if the given movie is contained within the list of movies
+    public boolean contains(Movie movie) {
+        return movieList.contains(movie);
     }
 }

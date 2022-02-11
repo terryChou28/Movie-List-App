@@ -17,7 +17,8 @@ class MovieTest {
     public void testConstructor() {
         assertEquals("Spider-Man: No Way Home", myMovie.getTitle());
         assertEquals(1744, myMovie.getBoxOffice());
-        assertEquals(93, myMovie.getApprovalRating());
+        assertEquals(93, myMovie.getRottenTomatoesRating());
+        assertEquals(0, myMovie.getRating());
     }
 
     @Test
@@ -41,7 +42,7 @@ class MovieTest {
 
     @Test
     public void testToString() {
-        assertTrue(myMovie.toString().contains("Title: Spider-Man: No Way Home, Box Office: 1744, " +
+        assertTrue(myMovie.toString().contains("Movie Title: Spider-Man: No Way Home, Box Office: 1744, " +
                 "Approval Rating: 93, User Rating: 0"));
     }
 }

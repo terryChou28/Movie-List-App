@@ -1,20 +1,21 @@
 package model;
 
 // Represents a movie having a title, box office (in $millions),
-// approval rating, and a user rating
+// Rotten Tomatoes' approval rating, and a user rating
 public class Movie {
     private String title;
     private int boxOffice;
-    private int approvalRating;
+    private int rottenTomatoesRating;
     private int rating;
 
-    // REQUIRES: title has a non-zero length, boxOffice and approvalRating >= 0
+    // REQUIRES: title has a non-zero length, boxOffice and rottenTomatoesRating >= 0
     // EFFECTS: constructs a movie with the given title, box office (in $millions),
-    //          and approval rating, also a user rating of 0
-    public Movie(String title, int boxOffice, int approvalRating) {
+    //          and Rotten Tomatoes' approval rating, also a user rating of 0
+    public Movie(String title, int boxOffice, int rottenTomatoesRating) {
         this.title = title;
         this.boxOffice = boxOffice;
-        this.approvalRating = approvalRating;
+        this.rottenTomatoesRating = rottenTomatoesRating;
+        rating = 0;
     }
 
     public String getTitle() {
@@ -25,8 +26,8 @@ public class Movie {
         return boxOffice;
     }
 
-    public int getApprovalRating() {
-        return approvalRating;
+    public int getRottenTomatoesRating() {
+        return rottenTomatoesRating;
     }
 
     public int getRating() {
@@ -53,7 +54,7 @@ public class Movie {
 
     // EFFECTS: returns a string representation of a movie
     public String toString() {
-        return "Title: " + title + ", Box Office: " + boxOffice + ", Approval Rating: "
-                + approvalRating + ", User Rating: " + rating;
+        return "Movie Title: " + title + ", Box Office: " + boxOffice + ", Approval Rating: "
+                + rottenTomatoesRating + ", User Rating: " + rating;
     }
 }
