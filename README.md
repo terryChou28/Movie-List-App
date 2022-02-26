@@ -21,3 +21,5 @@
 
 The Teller app is used as a reference for this project
 https://github.students.cs.ubc.ca/CPSC210/TellerApp
+The JsonSerializationDemo app is used as a reference for this project
+https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
