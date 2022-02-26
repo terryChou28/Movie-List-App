@@ -59,6 +59,7 @@ public class MovieListApp {
         System.out.println("\tv -> to view the list");
         System.out.println("\ts -> save movie list to file");
         System.out.println("\tl -> load movie list from file");
+        System.out.println("\tq -> quit");
     }
 
     // MODIFIES: this
