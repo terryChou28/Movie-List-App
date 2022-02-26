@@ -16,6 +16,8 @@
 - As a user, I want to be able to remove a movie from my movie list
 - As a user, I want to be able to rate a movie on a scale of one to five
 - As a user, I want to be able to see which movie has the highest approval rating on the list
+- As a user, I want to be able to save my movie lists to file
+- As a user, I want to be able to load my movie lists from file
 
 The Teller app is used as a reference for this project
 https://github.students.cs.ubc.ca/CPSC210/TellerApp

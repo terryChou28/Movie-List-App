@@ -1,10 +1,14 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 // Represents a movie list
-public class MovieList {
+public class MovieList implements Writable {
     private List<Movie> movieList;
 
     // EFFECTS: constructs an empty list of movies
@@ -72,5 +76,23 @@ public class MovieList {
     // EFFECTS: returns true if the given movie is contained within the list of movies
     public boolean contains(Movie movie) {
         return movieList.contains(movie);
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("movieList", movieToJson());
+        return json;
+    }
+
+    // EFFECTS: returns movies in this movie list as a JSON array
+    private JSONArray movieToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Movie m : movieList) {
+            jsonArray.put(m.toJson());
+        }
+
+        return jsonArray;
     }
 }

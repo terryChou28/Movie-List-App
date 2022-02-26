@@ -1,8 +1,11 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Represents a movie having a title, box office (in $millions),
 // Rotten Tomatoes' approval rating, and a user rating
-public class Movie {
+public class Movie implements Writable {
     private String title;
     private int boxOffice;
     private int rottenTomatoesRating;
@@ -56,5 +59,15 @@ public class Movie {
     public String toString() {
         return "Movie Title: " + title + ", Box Office: " + boxOffice + ", Approval Rating: "
                 + rottenTomatoesRating + ", User Rating: " + rating;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("title", title);
+        json.put("boxOffice", boxOffice);
+        json.put("rottenTomatoesRating", rottenTomatoesRating);
+        json.put("rating", rating);
+        return json;
     }
 }

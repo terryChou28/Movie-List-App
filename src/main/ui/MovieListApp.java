@@ -2,19 +2,26 @@ package ui;
 
 import model.Movie;
 import model.MovieList;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
 // The Teller application is used as a reference for this project
 // Movie list application
 public class MovieListApp {
+    private static final String JSON_STORE = "./data/myFile.json";
     private MovieList toWatchList;
     private MovieList watchedList;
     private Scanner input;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     // EFFECTS: runs the movie list application
-    public MovieListApp() {
+    public MovieListApp() throws FileNotFoundException {
         runMovieListApp();
     }
 
@@ -50,30 +57,29 @@ public class MovieListApp {
         System.out.println("\th -> highest rating movie");
         System.out.println("\tt -> rate movie");
         System.out.println("\tv -> to view the list");
+        System.out.println("\ts -> save movie list to file");
+        System.out.println("\tl -> load movie list from file");
     }
 
     // MODIFIES: this
     // EFFECTS: processes user option
     private void processOption(String option) {
-        switch (option) {
-            case "a":
-                toAdd();
-                break;
-            case "r":
-                toRemove();
-                break;
-            case "h":
-                highestRating();
-                break;
-            case "t":
-                toRate();
-                break;
-            case "v":
-                toView();
-                break;
-            default:
-                System.out.println("Option not valid!");
-                break;
+        if (option.equals("a")) {
+            toAdd();
+        } else if (option.equals("r")) {
+            toRemove();
+        } else if (option.equals("h")) {
+            highestRating();
+        } else if (option.equals("t")) {
+            toRate();
+        } else if (option.equals("v")) {
+            toView();
+        } else if (option.equals("s")) {
+            saveMovieList();
+        } else if (option.equals("l")) {
+            loadMovieList();
+        } else {
+            System.out.println("Option not valid!");
         }
     }
 
@@ -83,6 +89,8 @@ public class MovieListApp {
         toWatchList = new MovieList();
         watchedList = new MovieList();
         input = new Scanner(System.in);
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
     }
 
     // MODIFIES: this
@@ -218,5 +226,31 @@ public class MovieListApp {
             }
         }
         return index;
+    }
+
+    // EFFECTS: saves the movie list to file
+    private void saveMovieList() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(toWatchList);
+            jsonWriter.write(watchedList);
+            jsonWriter.close();
+            System.out.println("Saved to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads movie list from file
+    private void loadMovieList() {
+        try {
+            toWatchList = jsonReader.read();
+            System.out.println("Loaded to-watch list from " + JSON_STORE);
+            watchedList = jsonReader.read();
+            System.out.println("Loaded watched list from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 }
