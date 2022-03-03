@@ -14,11 +14,14 @@ import java.util.Scanner;
 // Movie list application
 public class MovieListApp {
     private static final String JSON_STORE = "./data/myFile.json";
+    private static final String JSON_STORE2 = "./data/myFile2.json";
     private MovieList toWatchList;
     private MovieList watchedList;
     private Scanner input;
     private JsonWriter jsonWriter;
+    private JsonWriter jsonWriter2;
     private JsonReader jsonReader;
+    private JsonReader jsonReader2;
 
     // EFFECTS: runs the movie list application
     public MovieListApp() throws FileNotFoundException {
@@ -91,7 +94,9 @@ public class MovieListApp {
         watchedList = new MovieList();
         input = new Scanner(System.in);
         jsonWriter = new JsonWriter(JSON_STORE);
+        jsonWriter2 = new JsonWriter(JSON_STORE2);
         jsonReader = new JsonReader(JSON_STORE);
+        jsonReader2 = new JsonReader(JSON_STORE2);
     }
 
     // MODIFIES: this
@@ -233,10 +238,13 @@ public class MovieListApp {
     private void saveMovieList() {
         try {
             jsonWriter.open();
+            jsonWriter2.open();
             jsonWriter.write(toWatchList);
-            jsonWriter.write(watchedList);
+            jsonWriter2.write(watchedList);
             jsonWriter.close();
-            System.out.println("Saved to " + JSON_STORE);
+            jsonWriter2.close();
+            System.out.println("To-watch list saved to " + JSON_STORE);
+            System.out.println("Watched list saved to " + JSON_STORE2);
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE);
         }
@@ -248,8 +256,8 @@ public class MovieListApp {
         try {
             toWatchList = jsonReader.read();
             System.out.println("Loaded to-watch list from " + JSON_STORE);
-            watchedList = jsonReader.read();
-            System.out.println("Loaded watched list from " + JSON_STORE);
+            watchedList = jsonReader2.read();
+            System.out.println("Loaded watched list from " + JSON_STORE2);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
         }
