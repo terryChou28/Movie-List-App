@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 
 // The Teller application is used as a reference for this project
+// https://github.students.cs.ubc.ca/CPSC210/TellerApp
 // Movie list application
 public class MovieListApp {
     private static final String JSON_STORE = "./data/myFile.json";

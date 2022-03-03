@@ -6,6 +6,8 @@ import org.json.JSONObject;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
+// The JsonSerializationDemo app is used as a reference for this project
+// https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 // Represents a writer that writes JSON representation of a movie list to file
 public class JsonWriter {
     private static final int TAB = 4;

@@ -62,6 +62,7 @@ public class Movie implements Writable {
     }
 
     @Override
+    // returns movie as a JSON object
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("title", title);
