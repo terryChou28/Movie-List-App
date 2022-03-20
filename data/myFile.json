@@ -2,13 +2,13 @@
     {
         "rottenTomatoesRating": 93,
         "rating": 0,
-        "boxOffice": 1744,
-        "title": "Spider-Man: No Way Home"
+        "boxOffice": 1700,
+        "title": "Spiderman"
     },
     {
         "rottenTomatoesRating": 94,
         "rating": 0,
-        "boxOffice": 2798,
-        "title": "Avengers: Endgame"
+        "boxOffice": 220,
+        "title": "Avengers"
     }
 ]}
