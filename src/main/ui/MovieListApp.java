@@ -5,8 +5,6 @@ import model.MovieList;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
-import javax.swing.*;
-import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
@@ -15,7 +13,7 @@ import java.util.Scanner;
 // The Teller application is used as a reference for this project
 // https://github.students.cs.ubc.ca/CPSC210/TellerApp
 // Movie list application
-public class MovieListApp extends JFrame {
+public class MovieListApp {
     private static final String JSON_STORE = "./data/myFile.json";
     private static final String JSON_STORE2 = "./data/myFile2.json";
     private MovieList toWatchList;
@@ -25,7 +23,7 @@ public class MovieListApp extends JFrame {
     private JsonWriter jsonWriter2;
     private JsonReader jsonReader;
     private JsonReader jsonReader2;
-    private Gui gui;
+    private MyFrame myFrame;
 
     // EFFECTS: runs the movie list application
     public MovieListApp() throws FileNotFoundException {
@@ -102,7 +100,7 @@ public class MovieListApp extends JFrame {
         jsonReader = new JsonReader(JSON_STORE);
         jsonReader2 = new JsonReader(JSON_STORE2);
 
-        gui = new Gui();
+        myFrame = new MyFrame();
     }
 
     // MODIFIES: this

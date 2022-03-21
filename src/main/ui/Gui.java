@@ -13,13 +13,16 @@ public class Gui extends JFrame {
     public Gui() {
         desktop = new JDesktopPane();
 
-        controlPanel = new JInternalFrame("Control Panel", true, false, false, false);
+        controlPanel = new JInternalFrame("Menu", false, false, false, false);
         controlPanel.setLayout(new BorderLayout());
-        controlPanel.setBounds(0, 0, 600, 800);
+        controlPanel.setBounds(0, 0, 600, 1500);
+        controlPanel.setSize(300, 1300);
 
         setContentPane(desktop);
         setTitle("Movie List Application");
         setSize(WIDTH, HEIGHT);
+
+        getContentPane().setBackground(new Color(12, 34, 56));
 
         addButtonPanel();
         addMenu();
@@ -53,7 +56,6 @@ public class Gui extends JFrame {
         JButton button3 = new JButton("View List");
         JButton button4 = new JButton("Save");
         JButton button5 = new JButton("Load");
-        controlPanel.add(jpn, BorderLayout.CENTER);
         jpn.add(button);
         jpn.add(button);
         jpn.add(button1);
@@ -61,6 +63,14 @@ public class Gui extends JFrame {
         jpn.add(button3);
         jpn.add(button4);
         jpn.add(button5);
+        button.setSize(200, 100);
+        button1.setSize(200, 100);
+        button2.setSize(200, 100);
+        button3.setSize(200, 100);
+        button4.setSize(200, 100);
+        button5.setSize(200, 100);
+        button.setBounds(200, 100, 100, 50);
+        desktop.add(jpn, BorderLayout.CENTER);
     }
 
     /**
