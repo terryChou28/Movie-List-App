@@ -39,7 +39,8 @@ public class Movie implements Writable {
 
     @Override
     public String toString() {
-        return title;
+        return "Movie Title: " + title + ", Box Office: " + boxOffice + ", Approval Rating: "
+                + rottenTomatoesRating + ", User Rating: " + rating;
     }
 
     // MODIFIES: this
