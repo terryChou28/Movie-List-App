@@ -1,8 +1,11 @@
 package persistence;
 
+import model.Movie;
 import model.MovieList;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
@@ -32,6 +35,21 @@ public class JsonWriter {
         JSONObject json = ml.toJson();
         saveToFile(json.toString(TAB));
     }
+
+//    public void write2(JList<String> jl) {
+//        public JSONObject tojson(JList jl {
+//            JSONArray jsonArray = new JSONArray();
+//
+//            for (Movie m : jl) {
+//                jsonArray.put(m.toJson());
+//            }
+//
+//            return jsonArray;
+//        }
+//        }
+//        JSONObject json = jl.toJson();
+//        saveToFile(json.toString(TAB));
+//    }
 
     // MODIFIES: this
     // EFFECTS: closes writer

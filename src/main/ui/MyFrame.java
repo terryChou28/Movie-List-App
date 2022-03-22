@@ -1,9 +1,14 @@
 package ui;
 
+import persistence.JsonWriter;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.Writer;
 
 public class MyFrame extends JFrame implements ActionListener {
     private static final int WIDTH = 1500;
@@ -12,7 +17,14 @@ public class MyFrame extends JFrame implements ActionListener {
     private JDesktopPane deskTop;
     private JInternalFrame internalFrame;
     private JButton button;
+    private JButton button3;
+    private JButton button4;
+    private JButton button5;
     private AddMovie addMovie;
+    private JLabel label;
+    private JList list;
+    private JScrollPane listScrollPane;
+    private JsonWriter writer;
 
     public MyFrame() {
         deskTop = new JDesktopPane();
@@ -32,6 +44,8 @@ public class MyFrame extends JFrame implements ActionListener {
         jib.setIcon(newIcon);
         this.add(jib);
 
+        addMovie = new AddMovie();
+
         addButtons();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -43,9 +57,11 @@ public class MyFrame extends JFrame implements ActionListener {
         button = new JButton("Add Movie");
         JButton button1 = new JButton("Remove Movie");
         JButton button2 = new JButton("Rate Movie");
-        JButton button3 = new JButton("View List");
-        JButton button4 = new JButton("Save");
-        JButton button5 = new JButton("Load");
+        button3 = new JButton("View List");
+        button3.addActionListener(this);
+        button4 = new JButton("Save");
+        button4.addActionListener(this);
+        button5 = new JButton("Load");
         button.setBounds(0, 0, 300, 150);
         button1.setBounds(0, 150, 300, 150);
         button2.setBounds(0, 300, 300, 150);
@@ -87,8 +103,8 @@ public class MyFrame extends JFrame implements ActionListener {
         if (e.getSource() == button) {
 //            addMovie = new AddMovie();
             //Create and set up the window.
-            JFrame frame = new AddMovie();
-//            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+            addMovie.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
             //Create and set up the content pane.
 //            JComponent newContentPane = new Add();
@@ -102,6 +118,34 @@ public class MyFrame extends JFrame implements ActionListener {
             //Display the window.
 //            frame.pack();
 //            frame.setVisible(true);
+            addMovie.setVisible(true);
+        }
+
+        if (e.getSource() == button3) {
+            JFrame frame = new View(addMovie.getList(), addMovie.getList2());
+            frame.setVisible(true);
+//            addMovie = new AddMovie();
+//            list = addMovie.getList();
+//
+//            listScrollPane = new JScrollPane(list);
+//            listScrollPane.setBounds(300, 0, 1200, 950);
+//            frame.add(listScrollPane, BorderLayout.CENTER);
+//            frame.pack();
+//            frame.setVisible(true);
+        }
+
+        if (e.getSource() == button4) {
+            JOptionPane.showMessageDialog(null, "Your list has been saved!",
+                    "Movie", JOptionPane.INFORMATION_MESSAGE);
+
+            writer = new JsonWriter("./data/GUI.json");
+            try {
+                writer.open();
+                writer.write(addMovie.getMovies());
+                writer.close();
+            } catch (FileNotFoundException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 }

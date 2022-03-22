@@ -37,6 +37,11 @@ public class Movie implements Writable {
         return rating;
     }
 
+    @Override
+    public String toString() {
+        return title;
+    }
+
     // MODIFIES: this
     // EFFECTS: rates the movie on a scale of one to five, ratings of 1 and 2
     //          returns "Negative Review", 3 returns "Neutral Review", and
@@ -53,12 +58,6 @@ public class Movie implements Writable {
         } else {
             return "Not in a scale of 1 to 5";
         }
-    }
-
-    // EFFECTS: returns a string representation of a movie
-    public String toString() {
-        return "Movie Title: " + title + ", Box Office: " + boxOffice + ", Approval Rating: "
-                + rottenTomatoesRating + ", User Rating: " + rating;
     }
 
     @Override
