@@ -38,7 +38,6 @@ public class AddMovie extends JFrame implements ActionListener {
     public AddMovie() {
         setTitle("Movie List Application");
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
-
         getContentPane().setBackground(new Color(12, 34, 56));
         setLayout(null);
 
@@ -48,6 +47,43 @@ public class AddMovie extends JFrame implements ActionListener {
         listModel2 = new DefaultListModel();
 
         label = new JLabel("Title: ");
+        JLabel label1 = new JLabel("Box Office: ");
+        JLabel label2 = new JLabel("Rating: ");
+
+        addLabel(label1, label2);
+
+        listModel.addElement(title.getText());
+        listModel2.addElement(boxOffice.getText());
+
+        //Create the list and put it in a scroll pane.
+        list = new JList<String>(listModel);
+        list2 = new JList<String>(listModel2);
+
+        addRemove();
+
+        this.pack();
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        centreOnScreen();
+
+    }
+
+    private void addRemove() {
+        addButton = new JButton("Add Movie");
+        addButton.setBounds(500, 600, 200, 100);
+        addButton.setFocusable(false);
+        this.add(addButton);
+        addButton.addActionListener(this);
+        addButton.setEnabled(true);
+
+        removeButton = new JButton("Remove");
+        removeButton.setBounds(1000, 600, 200, 100);
+        removeButton.setFocusable(false);
+        this.add(removeButton);
+        removeButton.addActionListener(this);
+        removeButton.setEnabled(true);
+    }
+
+    private void addLabel(JLabel label1, JLabel label2) {
         label.setBounds(450, 200, 200, 100);
         label.setForeground(Color.WHITE);
         label.setFont(new Font("MV Boli", Font.PLAIN, 36));
@@ -56,7 +92,6 @@ public class AddMovie extends JFrame implements ActionListener {
         this.add(title);
         this.add(label);
 
-        JLabel label1 = new JLabel("Box Office: ");
         label1.setBounds(650, 200, 400, 100);
         label1.setForeground(Color.WHITE);
         label1.setFont(new Font("MV Boli", Font.PLAIN, 36));
@@ -65,7 +100,6 @@ public class AddMovie extends JFrame implements ActionListener {
         this.add(boxOffice);
         this.add(label1);
 
-        JLabel label2 = new JLabel("Rating: ");
         label2.setBounds(950, 200, 200, 100);
         label2.setForeground(Color.WHITE);
         label2.setFont(new Font("MV Boli", Font.PLAIN, 36));
@@ -73,46 +107,6 @@ public class AddMovie extends JFrame implements ActionListener {
         rating.setBounds(950, 305, 100, 40);
         this.add(rating);
         this.add(label2);
-
-//        listModel.addElement("Title: ");
-//        listModel2.addElement("1");
-
-        listModel.addElement(title.getText());
-        listModel2.addElement(boxOffice.getText());
-
-        //Create the list and put it in a scroll pane.
-        list = new JList<String>(listModel);
-        list2 = new JList<String>(listModel2);
-        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        list.setSelectedIndex(0);
-        list2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        list2.setSelectedIndex(0);
-//        list.addListSelectionListener();
-        list.setVisibleRowCount(5);
-        list2.setVisibleRowCount(5);
-        JScrollPane listScrollPane = new JScrollPane(list);
-        JScrollPane scrollPane = new JScrollPane(list2);
-        listScrollPane.createVerticalScrollBar();
-        scrollPane.createVerticalScrollBar();
-
-        addButton = new JButton("Add Movie");
-        addButton.setBounds(500, 600, 200, 100);
-        addButton.setFocusable(false);
-        this.add(addButton);
-        addButton.addActionListener(this);
-//        AddListener addListener = new AddListener(addButton);
-//        addButton.setActionCommand("Add");
-//        addButton.addActionListener(addListener);
-        addButton.setEnabled(true);
-
-        removeButton = new JButton("Remove");
-        removeButton.setActionCommand("Remove");
-//        removeButton.addActionListener(new Add.FireListener());
-
-        this.pack();
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        centreOnScreen();
-
     }
 
     private void addButtons() {

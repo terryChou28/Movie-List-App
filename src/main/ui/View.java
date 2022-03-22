@@ -19,12 +19,9 @@ public class View extends JFrame {
     private JScrollPane listScrollPane;
 
     public View(JList list, JList list2) {
-        deskTop = new JDesktopPane();
-
         setTitle("Movie List Application");
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setBounds(0, 0, WIDTH, HEIGHT);
-
         getContentPane().setBackground(new Color(12, 34, 56));
         setLayout(null);
 
@@ -33,17 +30,7 @@ public class View extends JFrame {
         JLabel label = new JLabel(this.list.toString());
         getContentPane().add(list);
 
-        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        list.setSelectedIndex(0);
-//        list.addListSelectionListener();
-        list.setVisibleRowCount(5);
-        JScrollPane listScrollPane = new JScrollPane(list);
-        JScrollPane scrollPane = new JScrollPane(list2);
-        listScrollPane.setBounds(300, 0, 300, 450);
-        scrollPane.setBounds(600, 0, 300, 450);
-        listScrollPane.createVerticalScrollBar();
-        this.add(listScrollPane, BorderLayout.CENTER);
-        this.add(scrollPane, BorderLayout.CENTER);
+        addPane(list, list2);
 
         ImageIcon icon = new ImageIcon("./data/Batman.jpg");
         Image img = icon.getImage();
@@ -54,9 +41,18 @@ public class View extends JFrame {
         this.add(label);
 
         addButtons();
-
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         centreOnScreen();
+    }
+
+    private void addPane(JList list, JList list2) {
+        JScrollPane listScrollPane = new JScrollPane(list);
+        JScrollPane scrollPane = new JScrollPane(list2);
+        listScrollPane.setBounds(300, 0, 300, 450);
+        scrollPane.setBounds(600, 0, 300, 450);
+        listScrollPane.createVerticalScrollBar();
+        this.add(listScrollPane, BorderLayout.CENTER);
+        this.add(scrollPane, BorderLayout.CENTER);
     }
 
     private void addButtons() {
