@@ -1,5 +1,8 @@
 package ui;
 
+import model.Movie;
+import model.MovieList;
+import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import javax.swing.*;
@@ -7,27 +10,23 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.Writer;
+import java.io.IOException;
 
 public class MyFrame extends JFrame implements ActionListener {
     private static final int WIDTH = 1500;
     private static final int HEIGHT = 950;
 
-    private JDesktopPane deskTop;
-    private JInternalFrame internalFrame;
     private JButton button;
     private JButton button3;
     private JButton button4;
     private JButton button5;
     private AddMovie addMovie;
-    private JLabel label;
-    private JList list;
-    private JScrollPane listScrollPane;
     private JsonWriter writer;
+    private JsonReader reader;
+    private MovieList movieList;
 
+    // EFFECTS: constructs JFrame for the application
     public MyFrame() {
-        deskTop = new JDesktopPane();
 
         setTitle("Movie List Application");
         setSize(WIDTH, HEIGHT);
@@ -46,14 +45,16 @@ public class MyFrame extends JFrame implements ActionListener {
 
         addMovie = new AddMovie();
 
-        addButtons();
+        setButtons();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         centreOnScreen();
         setVisible(true);
     }
 
-    private void addButtons() {
+    // MODIFIES: this
+    // EFFECTS: sets buttons to appropriate positions
+    private void setButtons() {
         button = new JButton("Add Movie");
         JButton button1 = new JButton("Remove Movie");
         JButton button2 = new JButton("Rate Movie");
@@ -62,6 +63,7 @@ public class MyFrame extends JFrame implements ActionListener {
         button4 = new JButton("Save");
         button4.addActionListener(this);
         button5 = new JButton("Load");
+        button5.addActionListener(this);
         button.setBounds(0, 0, 300, 150);
         button1.setBounds(0, 150, 300, 150);
         button2.setBounds(0, 300, 300, 150);
@@ -72,6 +74,8 @@ public class MyFrame extends JFrame implements ActionListener {
         addButton(button, button1, button2, button3, button4, button5);
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds buttons to the frame
     private void addButton(JButton button, JButton button1, JButton button2,
                            JButton button3, JButton button4, JButton button5) {
         this.add(button);
@@ -92,6 +96,7 @@ public class MyFrame extends JFrame implements ActionListener {
     /**
      * Helper to centre main application window on desktop
      */
+    // EFFECTS: centers the application window
     private void centreOnScreen() {
         int width = Toolkit.getDefaultToolkit().getScreenSize().width;
         int height = Toolkit.getDefaultToolkit().getScreenSize().height;
@@ -101,37 +106,12 @@ public class MyFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == button) {
-//            addMovie = new AddMovie();
-            //Create and set up the window.
-
-            addMovie.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-            //Create and set up the content pane.
-//            JComponent newContentPane = new Add();
-////            newContentPane.setBackground(new Color(12, 34, 56));
-//////            newContentPane.setLayout(null);
-////            newContentPane.setPreferredSize(new Dimension(1200, 900));
-////            newContentPane.setBounds(300, 0, 1200, 950);
-//            newContentPane.setOpaque(true); //content panes must be opaque
-//            frame.setContentPane(newContentPane);
-
-            //Display the window.
-//            frame.pack();
-//            frame.setVisible(true);
             addMovie.setVisible(true);
         }
 
         if (e.getSource() == button3) {
-            JFrame frame = new View(addMovie.getList(), addMovie.getList2());
+            JFrame frame = new View(addMovie.getList(), addMovie.getList2(), addMovie.getList3());
             frame.setVisible(true);
-//            addMovie = new AddMovie();
-//            list = addMovie.getList();
-//
-//            listScrollPane = new JScrollPane(list);
-//            listScrollPane.setBounds(300, 0, 1200, 950);
-//            frame.add(listScrollPane, BorderLayout.CENTER);
-//            frame.pack();
-//            frame.setVisible(true);
         }
 
         if (e.getSource() == button4) {
@@ -140,12 +120,62 @@ public class MyFrame extends JFrame implements ActionListener {
 
             writer = new JsonWriter("./data/GUI.json");
             try {
-                writer.open();
-                writer.write(addMovie.getMovies());
-                writer.close();
+                writeFile();
             } catch (FileNotFoundException ex) {
                 ex.printStackTrace();
             }
+        }
+
+        if (e.getSource() == button5) {
+            JOptionPane.showMessageDialog(null, "Your list has been loaded!",
+                    "Movie", JOptionPane.INFORMATION_MESSAGE);
+
+            reader = new JsonReader("./data/GUI.json");
+
+            convertLists();
+        }
+    }
+
+    // EFFECTS: converts movie lists to JLists
+    private void convertLists() {
+        try {
+            movieList = reader.read();
+
+            DefaultListModel<String> model = new DefaultListModel<>();
+            DefaultListModel<String> model1 = new DefaultListModel<>();
+            DefaultListModel<String> model2 = new DefaultListModel<>();
+
+            addElements(model, model1, model2);
+
+            JList<String> movieJList = new JList<>(model);
+            JList<String> movieJList1 = new JList<>(model1);
+            JList<String> movieJList2 = new JList<>(model2);
+
+            JFrame view = new View2(movieJList, movieJList1, movieJList2);
+            view.setVisible(true);
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+    }
+
+    // EFFECTS: writes the list to file
+    private void writeFile() throws FileNotFoundException {
+        writer.open();
+        writer.write(addMovie.getMovies());
+        writer.close();
+    }
+
+    // EFFECTS: adds elements to JLists
+    private void addElements(DefaultListModel<String> model, DefaultListModel<String> model1,
+                             DefaultListModel<String> model2) {
+        model.addElement("Title: ");
+        model1.addElement("Box Office: ");
+        model2.addElement("Rotten Tomatoes Rating: ");
+
+        for (Movie m : movieList.getMovieList()) {
+            model.addElement(m.getTitle());
+            model1.addElement(Integer.toString(m.getBoxOffice()));
+            model2.addElement(Integer.toString(m.getRottenTomatoesRating()));
         }
     }
 }

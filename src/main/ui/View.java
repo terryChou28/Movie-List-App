@@ -8,17 +8,14 @@ public class View extends JFrame {
     private static final int WIDTH = 1500;
     private static final int HEIGHT = 950;
 
-    private JDesktopPane deskTop;
-    private JInternalFrame internalFrame;
     private JButton button;
     private JButton button3;
-    private AddMovie addMovie;
-    private JLabel label;
     private JList<String> list;
     private JList<String> list2;
-    private JScrollPane listScrollPane;
+    private JList<String> list3;
 
-    public View(JList list, JList list2) {
+    // EFFECTS: constructs a frame to view the list
+    public View(JList list, JList list2, JList list3) {
         setTitle("Movie List Application");
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setBounds(0, 0, WIDTH, HEIGHT);
@@ -27,10 +24,12 @@ public class View extends JFrame {
 
         this.list = list;
         this.list2 = list2;
+        this.list3 = list3;
+
         JLabel label = new JLabel(this.list.toString());
         getContentPane().add(list);
 
-        addPane(list, list2);
+        addPane(list, list2, list3);
 
         ImageIcon icon = new ImageIcon("./data/Batman.jpg");
         Image img = icon.getImage();
@@ -40,22 +39,29 @@ public class View extends JFrame {
         label.setIcon(newIcon);
         this.add(label);
 
-        addButtons();
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setButtons();
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         centreOnScreen();
     }
 
-    private void addPane(JList list, JList list2) {
+    // MODIFIES: this
+    // EFFECTS: adds panes to the frame
+    private void addPane(JList list, JList list2, JList list3) {
         JScrollPane listScrollPane = new JScrollPane(list);
         JScrollPane scrollPane = new JScrollPane(list2);
+        JScrollPane scrollPane1 = new JScrollPane(list3);
         listScrollPane.setBounds(300, 0, 300, 450);
+        scrollPane1.setBounds(900, 0, 300, 450);
         scrollPane.setBounds(600, 0, 300, 450);
         listScrollPane.createVerticalScrollBar();
         this.add(listScrollPane, BorderLayout.CENTER);
         this.add(scrollPane, BorderLayout.CENTER);
+        this.add(scrollPane1, BorderLayout.CENTER);
     }
 
-    private void addButtons() {
+    // MODIFIES: this
+    // EFFECTS: sets the buttons to appropriate text and positions
+    private void setButtons() {
         button = new JButton("Add Movie");
         JButton button1 = new JButton("Remove Movie");
         JButton button2 = new JButton("Rate Movie");
@@ -70,11 +76,13 @@ public class View extends JFrame {
         button4.setBounds(0, 600, 300, 150);
         button5.setBounds(0, 750, 300, 150);
 //            button.addActionListener(this);
-        addButton(button, button1, button2, button3, button4, button5);
+        addButtons(button, button1, button2, button3, button4, button5);
     }
 
-    private void addButton(JButton button, JButton button1, JButton button2,
-                           JButton button3, JButton button4, JButton button5) {
+    // MODIFIES: this
+    // EFFECTS: adds buttons to the frame
+    private void addButtons(JButton button, JButton button1, JButton button2,
+                            JButton button3, JButton button4, JButton button5) {
         this.add(button);
         this.add(button);
         this.add(button1);
@@ -93,6 +101,7 @@ public class View extends JFrame {
     /**
      * Helper to centre main application window on desktop
      */
+    // EFFECTS: centers the application window
     private void centreOnScreen() {
         int width = Toolkit.getDefaultToolkit().getScreenSize().width;
         int height = Toolkit.getDefaultToolkit().getScreenSize().height;

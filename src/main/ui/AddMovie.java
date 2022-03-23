@@ -4,9 +4,6 @@ import model.Movie;
 import model.MovieList;
 
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.event.ListSelectionEvent;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,13 +11,13 @@ import java.awt.event.ActionListener;
 public class AddMovie extends JFrame implements ActionListener {
     private static final int WIDTH = 1500;
     private static final int HEIGHT = 950;
-    private static final String addString = "Add";
-    private static final String removeString = "Remove";
 
     private JList list;
     private JList list2;
+    private JList list3;
     private DefaultListModel listModel;
     private DefaultListModel listModel2;
+    private DefaultListModel listModel3;
     private JButton button;
     private JButton addButton;
     private JButton button3;
@@ -30,43 +27,55 @@ public class AddMovie extends JFrame implements ActionListener {
     private JTextField title;
     private JTextField boxOffice;
     private JTextField rating;
-    private JScrollPane listScrollPane;
     private Movie movie;
     private MovieList movies;
 
-
+    // EFFECTS: constructs a frame to add movies to a list
     public AddMovie() {
         setTitle("Movie List Application");
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         getContentPane().setBackground(new Color(12, 34, 56));
         setLayout(null);
 
-        addButtons();
+        setButtons();
+        movies = new MovieList();
 
         listModel = new DefaultListModel();
         listModel2 = new DefaultListModel();
+        listModel3 = new DefaultListModel();
 
         label = new JLabel("Title: ");
         JLabel label1 = new JLabel("Box Office: ");
-        JLabel label2 = new JLabel("Rating: ");
+        JLabel label2 = new JLabel("Rotten Tomato Rating: ");
 
-        addLabel(label1, label2);
+        addLabels(label1, label2);
 
-        listModel.addElement(title.getText());
-        listModel2.addElement(boxOffice.getText());
+        addElements();
 
         //Create the list and put it in a scroll pane.
         list = new JList<String>(listModel);
         list2 = new JList<String>(listModel2);
+        list3 = new JList<String>(listModel3);
 
         addRemove();
 
         this.pack();
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         centreOnScreen();
-
     }
 
+    // EFFECTS: adds elements to the list models
+    private void addElements() {
+        listModel.addElement("Title: ");
+        listModel2.addElement("Box Office: ");
+        listModel3.addElement("Rotten Tomato Rating: ");
+        listModel.addElement(title.getText());
+        listModel2.addElement(boxOffice.getText());
+        listModel3.addElement(rating.getText());
+    }
+
+    // MODIFIES: this
+    // EFFECTS: creates add and remove buttons
     private void addRemove() {
         addButton = new JButton("Add Movie");
         addButton.setBounds(500, 600, 200, 100);
@@ -83,7 +92,9 @@ public class AddMovie extends JFrame implements ActionListener {
         removeButton.setEnabled(true);
     }
 
-    private void addLabel(JLabel label1, JLabel label2) {
+    // MODIFIES: this
+    // EFFECTS: adds labels to the frame
+    private void addLabels(JLabel label1, JLabel label2) {
         label.setBounds(450, 200, 200, 100);
         label.setForeground(Color.WHITE);
         label.setFont(new Font("MV Boli", Font.PLAIN, 36));
@@ -100,16 +111,18 @@ public class AddMovie extends JFrame implements ActionListener {
         this.add(boxOffice);
         this.add(label1);
 
-        label2.setBounds(950, 200, 200, 100);
+        label2.setBounds(950, 200, 500, 100);
         label2.setForeground(Color.WHITE);
         label2.setFont(new Font("MV Boli", Font.PLAIN, 36));
         rating = new JTextField();
-        rating.setBounds(950, 305, 100, 40);
+        rating.setBounds(950, 305, 400, 40);
         this.add(rating);
         this.add(label2);
     }
 
-    private void addButtons() {
+    // MODIFIES: this
+    // EFFECTS: sets buttons to appropriate positions and text
+    private void setButtons() {
         button = new JButton("Add Movie");
         JButton button1 = new JButton("Remove Movie");
         JButton button2 = new JButton("Rate Movie");
@@ -124,11 +137,13 @@ public class AddMovie extends JFrame implements ActionListener {
         button4.setBounds(0, 600, 300, 150);
         button5.setBounds(0, 750, 300, 150);
         button.addActionListener(e -> System.out.println("Cool"));
-        addButton(button, button1, button2, button3, button4, button5);
+        addButtons(button, button1, button2, button3, button4, button5);
     }
 
-    private void addButton(JButton button, JButton button1, JButton button2,
-                           JButton button3, JButton button4, JButton button5) {
+    // MODIFIES: this
+    // EFFECTS: adds buttons to the frame
+    private void addButtons(JButton button, JButton button1, JButton button2,
+                            JButton button3, JButton button4, JButton button5) {
         this.add(button);
         this.add(button);
         this.add(button1);
@@ -147,6 +162,7 @@ public class AddMovie extends JFrame implements ActionListener {
     /**
      * Helper to centre main application window on desktop
      */
+    // EFFECTS: centers the application window
     private void centreOnScreen() {
         int width = Toolkit.getDefaultToolkit().getScreenSize().width;
         int height = Toolkit.getDefaultToolkit().getScreenSize().height;
@@ -158,30 +174,20 @@ public class AddMovie extends JFrame implements ActionListener {
         if (e.getSource() == addButton) {
             listModel.addElement(title.getText());
             listModel2.addElement(boxOffice.getText());
-            movie = new Movie(title.getText(), Integer.parseInt(boxOffice.getText()), 0);
-            movies = new MovieList();
+            listModel3.addElement(rating.getText());
+            movie = new Movie(title.getText(), Integer.parseInt(boxOffice.getText()),
+                    Integer.parseInt(rating.getText()));
+
             movies.addMovie(movie);
             JOptionPane.showMessageDialog(null, title.getText() + " has been added!",
                     "Movie", JOptionPane.INFORMATION_MESSAGE);
         }
 
         if (e.getSource() == button3) {
-            JFrame view = new View(list, list2);
+            JFrame view = new View(list, list2, list3);
             view.setVisible(true);
             System.out.println(list.toString());
-
-//            JPanel panel = new JPanel();
-//            panel.setBackground(Color.red);
-//            panel.setBounds(300, 0, 250, 250);
-//            panel.setLayout(new BorderLayout());
-//            JLabel label = new JLabel(list.getToolTipText());
-//            panel.add(label);
-//            this.add(panel);
-//            listScrollPane.setBackground(Color.red);
-//            listScrollPane.setBounds(300, 0, 250, 250);
-//            this.add(listScrollPane, BorderLayout.CENTER);
         }
-
     }
 
     public JList getList() {
@@ -192,103 +198,11 @@ public class AddMovie extends JFrame implements ActionListener {
         return list2;
     }
 
+    public JList getList3() {
+        return list3;
+    }
+
     public MovieList getMovies() {
         return movies;
     }
-
-    //This listener is shared by the text field and the add button.
-//    class AddListener implements ActionListener, DocumentListener {
-//        private boolean alreadyEnabled = false;
-//
-//        private JButton button;
-//
-//        public AddListener(JButton button) {
-//            this.button = button;
-//        }
-
-//        //Required by ActionListener.
-//        public void actionPerformed(ActionEvent e) {
-//            String name = title.getText();
-//
-//            //User didn't type in a unique name...
-//            if (name.equals("") || alreadyInList(name)) {
-//                Toolkit.getDefaultToolkit().beep();
-//                movieName.requestFocusInWindow();
-//                movieName.selectAll();
-//                return;
-//            }
-//
-//            int index = list.getSelectedIndex(); //get selected index
-//            if (index == -1) { //no selection, so insert at beginning
-//                index = 0;
-//            } else {           //add after the selected item
-//                index++;
-//            }
-//
-//            listModel.insertElementAt(title.getText(), index);
-//            //If we just wanted to add to the end, we'd do this:
-//            //listModel.addElement(employeeName.getText());
-
-//            //Reset the text field.
-//            movieName.requestFocusInWindow();
-//            movieName.setText("");
-//
-//            //Select the new item and make it visible.
-//            list.setSelectedIndex(index);
-//            list.ensureIndexIsVisible(index);
-//        }
-//
-//        //This method tests for string equality. For example,
-//        //you might want to ignore white space and capitalization.
-//        protected boolean alreadyInList(String name) {
-//            return listModel.contains(name);
-//        }
-//
-//        //Required by DocumentListener.
-//        public void insertUpdate(DocumentEvent e) {
-//            enableButton();
-//        }
-//
-//        //Required by DocumentListener.
-//        public void removeUpdate(DocumentEvent e) {
-//            handleEmptyTextField(e);
-//        }
-//
-//        //Required by DocumentListener.
-//        public void changedUpdate(DocumentEvent e) {
-//            if (!handleEmptyTextField(e)) {
-//                enableButton();
-//            }
-//        }
-//
-//        private void enableButton() {
-//            if (!alreadyEnabled) {
-//                button.setEnabled(true);
-//            }
-//        }
-//
-//        private boolean handleEmptyTextField(DocumentEvent e) {
-//            if (e.getDocument().getLength() <= 0) {
-//                button.setEnabled(false);
-//                alreadyEnabled = false;
-//                return true;
-//            }
-//            return false;
-//        }
-//
-//        //This method is required by ListSelectionListener.
-//        public void valueChanged(ListSelectionEvent e) {
-//            if (e.getValueIsAdjusting() == false) {
-//
-//                if (list.getSelectedIndex() == -1) {
-//                    //No selection, disable remove button.
-//                    removeButton.setEnabled(false);
-//
-//                } else {
-//                    //Selection, enable the remove button.
-//                    removeButton.setEnabled(true);
-//                }
-//            }
-//        }
-//    }
 }
