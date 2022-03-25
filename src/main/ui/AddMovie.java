@@ -8,6 +8,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// The ListDemo app is used as a reference for this project
+// https://docs.oracle.com/javase/tutorial/displayCode.html?code=
+// https://docs.oracle.com/javase/tutorial/uiswing/examples/components/ListDemoProject/src/components/ListDemo.java
+// Represents a window that adds movies to the movie list
 public class AddMovie extends JFrame implements ActionListener {
     private static final int WIDTH = 1500;
     private static final int HEIGHT = 950;
@@ -22,7 +26,6 @@ public class AddMovie extends JFrame implements ActionListener {
     private JButton addButton;
     private JButton button3;
     private JButton removeButton;
-    private JTextField movieName;
     private JLabel label;
     private JTextField title;
     private JTextField boxOffice;
@@ -64,6 +67,7 @@ public class AddMovie extends JFrame implements ActionListener {
         centreOnScreen();
     }
 
+    // MODIFIES: this
     // EFFECTS: adds elements to the list models
     private void addElements() {
         listModel.addElement("Title: ");
@@ -137,7 +141,6 @@ public class AddMovie extends JFrame implements ActionListener {
         button3.setBounds(0, 450, 300, 150);
         button4.setBounds(0, 600, 300, 150);
         button5.setBounds(0, 750, 300, 150);
-        button.addActionListener(e -> System.out.println("Cool"));
         addButtons(button, button1, button2, button3, button4, button5);
     }
 
@@ -170,14 +173,20 @@ public class AddMovie extends JFrame implements ActionListener {
         setLocation((width - getWidth()) / 2, (height - getHeight()) / 2);
     }
 
+    // MODIFIES: this
+    // EFFECTS: enables add button
     public void addEnabled() {
         addButton.setEnabled(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: enables remove button
     public void removeEnabled() {
         removeButton.setEnabled(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: performs actions depending on the buttons pressed
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == addButton) {
@@ -195,7 +204,6 @@ public class AddMovie extends JFrame implements ActionListener {
         if (e.getSource() == button3) {
             JFrame view = new View(list, list2, list3);
             view.setVisible(true);
-            System.out.println(list.toString());
         }
 
         if (e.getSource() == removeButton) {

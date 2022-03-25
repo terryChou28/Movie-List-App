@@ -23,3 +23,5 @@ The Teller app is used as a reference for this project
 https://github.students.cs.ubc.ca/CPSC210/TellerApp
 The JsonSerializationDemo app is used as a reference for this project
 https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+The ListDemo app is used as a reference for this project
+https://docs.oracle.com/javase/tutorial/displayCode.html?code=https://docs.oracle.com/javase/tutorial/uiswing/examples/components/ListDemoProject/src/components/ListDemo.java

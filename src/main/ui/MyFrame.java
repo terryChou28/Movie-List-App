@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+// Represents a window to display the main graphical user interface
 public class MyFrame extends JFrame implements ActionListener {
     private static final int WIDTH = 1500;
     private static final int HEIGHT = 950;
@@ -105,6 +106,7 @@ public class MyFrame extends JFrame implements ActionListener {
         setLocation((width - getWidth()) / 2, (height - getHeight()) / 2);
     }
 
+    // Effects: performs actions depending on which button is pressed
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == button) {
@@ -123,15 +125,7 @@ public class MyFrame extends JFrame implements ActionListener {
         }
 
         if (e.getSource() == button4) {
-            JOptionPane.showMessageDialog(null, "Your list has been saved!",
-                    "Movie", JOptionPane.INFORMATION_MESSAGE);
-
-            writer = new JsonWriter("./data/GUI.json");
-            try {
-                writeFile();
-            } catch (FileNotFoundException ex) {
-                ex.printStackTrace();
-            }
+            save();
         }
 
         if (e.getSource() == button5) {
@@ -141,6 +135,19 @@ public class MyFrame extends JFrame implements ActionListener {
             reader = new JsonReader("./data/GUI.json");
 
             convertLists();
+        }
+    }
+
+    // EFFECTS: saves the movie list to file
+    private void save() {
+        JOptionPane.showMessageDialog(null, "Your list has been saved!",
+                "Movie", JOptionPane.INFORMATION_MESSAGE);
+
+        writer = new JsonWriter("./data/GUI.json");
+        try {
+            writeFile();
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
         }
     }
 

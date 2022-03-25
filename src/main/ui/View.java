@@ -3,6 +3,7 @@ package ui;
 import javax.swing.*;
 import java.awt.*;
 
+// Represents a window to view the movie list
 public class View extends JFrame {
 
     private static final int WIDTH = 1500;
@@ -26,7 +27,7 @@ public class View extends JFrame {
         this.list2 = list2;
         this.list3 = list3;
 
-        JLabel label = new JLabel(this.list.toString());
+        JLabel label = new JLabel();
         getContentPane().add(list);
 
         addPane(list, list2, list3);
