@@ -1,20 +1,6 @@
-{"movieList": [
-    {
-        "rottenTomatoesRating": 90,
-        "rating": 0,
-        "boxOffice": 500,
-        "title": "Batman"
-    },
-    {
-        "rottenTomatoesRating": 93,
-        "rating": 0,
-        "boxOffice": 1700,
-        "title": "Spiderman"
-    },
-    {
-        "rottenTomatoesRating": 94,
-        "rating": 0,
-        "boxOffice": 2200,
-        "title": "Avengers"
-    }
-]}
+{"movieList": [{
+    "rottenTomatoesRating": 90,
+    "rating": 0,
+    "boxOffice": 500,
+    "title": "batman"
+}]}

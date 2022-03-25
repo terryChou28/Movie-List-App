@@ -80,16 +80,17 @@ public class AddMovie extends JFrame implements ActionListener {
         addButton = new JButton("Add Movie");
         addButton.setBounds(500, 600, 200, 100);
         addButton.setFocusable(false);
+        addButton.setEnabled(false);
         this.add(addButton);
         addButton.addActionListener(this);
-        addButton.setEnabled(true);
+        addButton.setEnabled(false);
 
         removeButton = new JButton("Remove");
         removeButton.setBounds(1000, 600, 200, 100);
         removeButton.setFocusable(false);
         this.add(removeButton);
         removeButton.addActionListener(this);
-        removeButton.setEnabled(true);
+        removeButton.setEnabled(false);
     }
 
     // MODIFIES: this
@@ -169,6 +170,14 @@ public class AddMovie extends JFrame implements ActionListener {
         setLocation((width - getWidth()) / 2, (height - getHeight()) / 2);
     }
 
+    public void addEnabled() {
+        addButton.setEnabled(true);
+    }
+
+    public void removeEnabled() {
+        removeButton.setEnabled(true);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == addButton) {
@@ -187,6 +196,16 @@ public class AddMovie extends JFrame implements ActionListener {
             JFrame view = new View(list, list2, list3);
             view.setVisible(true);
             System.out.println(list.toString());
+        }
+
+        if (e.getSource() == removeButton) {
+            listModel.removeElement((title.getText()));
+            listModel2.removeElement(boxOffice.getText());
+            listModel3.removeElement(rating.getText());
+
+            movies.removeMovie(title.getText());
+            JOptionPane.showMessageDialog(null, title.getText() + " has been removed!",
+                    "Movie", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 

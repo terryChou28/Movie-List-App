@@ -17,6 +17,7 @@ public class MyFrame extends JFrame implements ActionListener {
     private static final int HEIGHT = 950;
 
     private JButton button;
+    private JButton button1;
     private JButton button3;
     private JButton button4;
     private JButton button5;
@@ -56,7 +57,8 @@ public class MyFrame extends JFrame implements ActionListener {
     // EFFECTS: sets buttons to appropriate positions
     private void setButtons() {
         button = new JButton("Add Movie");
-        JButton button1 = new JButton("Remove Movie");
+        button1 = new JButton("Remove Movie");
+        button1.addActionListener(this);
         JButton button2 = new JButton("Rate Movie");
         button3 = new JButton("View List");
         button3.addActionListener(this);
@@ -107,6 +109,12 @@ public class MyFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == button) {
             addMovie.setVisible(true);
+            addMovie.addEnabled();
+        }
+
+        if (e.getSource() == button1) {
+            addMovie.setVisible(true);
+            addMovie.removeEnabled();
         }
 
         if (e.getSource() == button3) {
