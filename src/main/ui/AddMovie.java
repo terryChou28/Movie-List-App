@@ -16,12 +16,12 @@ public class AddMovie extends JFrame implements ActionListener {
     private static final int WIDTH = 1500;
     private static final int HEIGHT = 950;
 
-    private JList list;
-    private JList list2;
-    private JList list3;
-    private DefaultListModel listModel;
-    private DefaultListModel listModel2;
-    private DefaultListModel listModel3;
+    private JList<String> list;
+    private JList<String> list2;
+    private JList<String> list3;
+    private DefaultListModel<String> listModel;
+    private DefaultListModel<String> listModel2;
+    private DefaultListModel<String> listModel3;
     private JButton button;
     private JButton addButton;
     private JButton button3;
@@ -43,22 +43,22 @@ public class AddMovie extends JFrame implements ActionListener {
         setButtons();
         movies = new MovieList();
 
-        listModel = new DefaultListModel();
-        listModel2 = new DefaultListModel();
-        listModel3 = new DefaultListModel();
+        listModel = new DefaultListModel<>();
+        listModel2 = new DefaultListModel<>();
+        listModel3 = new DefaultListModel<>();
 
         label = new JLabel("Title: ");
         JLabel label1 = new JLabel("Box Office: ");
-        JLabel label2 = new JLabel("Rotten Tomato Rating: ");
+        JLabel label2 = new JLabel("Rotten Tomatoes Rating: ");
 
         addLabels(label1, label2);
 
         addElements();
 
         //Create the list and put it in a scroll pane.
-        list = new JList<String>(listModel);
-        list2 = new JList<String>(listModel2);
-        list3 = new JList<String>(listModel3);
+        list = new JList<>(listModel);
+        list2 = new JList<>(listModel2);
+        list3 = new JList<>(listModel3);
 
         addRemove();
 
@@ -72,7 +72,7 @@ public class AddMovie extends JFrame implements ActionListener {
     private void addElements() {
         listModel.addElement("Title: ");
         listModel2.addElement("Box Office: ");
-        listModel3.addElement("Rotten Tomato Rating: ");
+        listModel3.addElement("Rotten Tomatoes Rating: ");
         listModel.addElement(title.getText());
         listModel2.addElement(boxOffice.getText());
         listModel3.addElement(rating.getText());
@@ -100,19 +100,19 @@ public class AddMovie extends JFrame implements ActionListener {
     // MODIFIES: this
     // EFFECTS: adds labels to the frame
     private void addLabels(JLabel label1, JLabel label2) {
-        label.setBounds(450, 200, 200, 100);
+        label.setBounds(400, 200, 200, 100);
         label.setForeground(Color.WHITE);
         label.setFont(new Font("MV Boli", Font.PLAIN, 36));
         title = new JTextField();
-        title.setBounds(450, 305, 100, 40);
+        title.setBounds(400, 305, 200, 40);
         this.add(title);
         this.add(label);
 
-        label1.setBounds(650, 200, 400, 100);
+        label1.setBounds(675, 200, 400, 100);
         label1.setForeground(Color.WHITE);
         label1.setFont(new Font("MV Boli", Font.PLAIN, 36));
         boxOffice = new JTextField();
-        boxOffice.setBounds(650, 305, 200, 40);
+        boxOffice.setBounds(675, 305, 200, 40);
         this.add(boxOffice);
         this.add(label1);
 
@@ -175,8 +175,8 @@ public class AddMovie extends JFrame implements ActionListener {
 
     // MODIFIES: this
     // EFFECTS: enables add button
-    public void addEnabled() {
-        addButton.setEnabled(true);
+    public void addEnabled(Boolean b) {
+        addButton.setEnabled(b);
     }
 
     // MODIFIES: this
@@ -217,15 +217,15 @@ public class AddMovie extends JFrame implements ActionListener {
         }
     }
 
-    public JList getList() {
+    public JList<String> getList() {
         return list;
     }
 
-    public JList getList2() {
+    public JList<String> getList2() {
         return list2;
     }
 
-    public JList getList3() {
+    public JList<String> getList3() {
         return list3;
     }
 

@@ -111,11 +111,12 @@ public class MyFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == button) {
             addMovie.setVisible(true);
-            addMovie.addEnabled();
+            addMovie.addEnabled(true);
         }
 
         if (e.getSource() == button1) {
             addMovie.setVisible(true);
+            addMovie.addEnabled(false);
             addMovie.removeEnabled();
         }
 

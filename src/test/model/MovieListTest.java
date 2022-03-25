@@ -71,5 +71,4 @@ class MovieListTest {
         myMovieList.addMovie(myMovie2);
         assertEquals(myMovie2, myMovieList.highestRatingMovie(myMovieList.getMovieList()));
     }
-
 }

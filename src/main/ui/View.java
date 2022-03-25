@@ -16,7 +16,7 @@ public class View extends JFrame {
     private JList<String> list3;
 
     // EFFECTS: constructs a frame to view the list
-    public View(JList list, JList list2, JList list3) {
+    public View(JList<String> list, JList<String> list2, JList<String> list3) {
         setTitle("Movie List Application");
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setBounds(0, 0, WIDTH, HEIGHT);
@@ -30,7 +30,7 @@ public class View extends JFrame {
         JLabel label = new JLabel();
         getContentPane().add(list);
 
-        addPane(list, list2, list3);
+        addPane(this.list, this.list2, this.list3);
 
         ImageIcon icon = new ImageIcon("./data/Batman.jpg");
         Image img = icon.getImage();
@@ -47,7 +47,7 @@ public class View extends JFrame {
 
     // MODIFIES: this
     // EFFECTS: adds panes to the frame
-    private void addPane(JList list, JList list2, JList list3) {
+    private void addPane(JList<String> list, JList<String> list2, JList<String> list3) {
         JScrollPane listScrollPane = new JScrollPane(list);
         JScrollPane scrollPane = new JScrollPane(list2);
         JScrollPane scrollPane1 = new JScrollPane(list3);
