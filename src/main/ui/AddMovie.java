@@ -1,5 +1,7 @@
 package ui;
 
+import model.EventLog;
+import model.Event;
 import model.Movie;
 import model.MovieList;
 
@@ -190,15 +192,7 @@ public class AddMovie extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == addButton) {
-            listModel.addElement(title.getText());
-            listModel2.addElement(boxOffice.getText());
-            listModel3.addElement(rating.getText());
-            movie = new Movie(title.getText(), Integer.parseInt(boxOffice.getText()),
-                    Integer.parseInt(rating.getText()));
-
-            movies.addMovie(movie);
-            JOptionPane.showMessageDialog(null, title.getText() + " has been added!",
-                    "Movie", JOptionPane.INFORMATION_MESSAGE);
+            addMovie();
         }
 
         if (e.getSource() == button3) {
@@ -215,6 +209,19 @@ public class AddMovie extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(null, title.getText() + " has been removed!",
                     "Movie", JOptionPane.INFORMATION_MESSAGE);
         }
+    }
+
+    private void addMovie() {
+        listModel.addElement(title.getText());
+        listModel2.addElement(boxOffice.getText());
+        listModel3.addElement(rating.getText());
+        movie = new Movie(title.getText(), Integer.parseInt(boxOffice.getText()),
+                Integer.parseInt(rating.getText()));
+
+        movies.addMovie(movie);
+        JOptionPane.showMessageDialog(null, title.getText() + " has been added!",
+                "Movie", JOptionPane.INFORMATION_MESSAGE);
+
     }
 
     public JList<String> getList() {

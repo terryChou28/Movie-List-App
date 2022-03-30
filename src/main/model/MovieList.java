@@ -35,6 +35,7 @@ public class MovieList implements Writable {
             }
         }
         movieList.add(movie);
+        EventLog.getInstance().logEvent(new Event("Movie added to movie list"));
         return true;
     }
 
@@ -57,6 +58,7 @@ public class MovieList implements Writable {
 
         Movie movie = movieList.get(index);
         movieList.remove(movie);
+        EventLog.getInstance().logEvent(new Event("Movie removed from movie list"));
         return true;
     }
 

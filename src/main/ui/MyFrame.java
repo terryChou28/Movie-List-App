@@ -1,5 +1,7 @@
 package ui;
 
+import model.Event;
+import model.EventLog;
 import model.Movie;
 import model.MovieList;
 import persistence.JsonReader;
@@ -9,6 +11,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -46,12 +50,24 @@ public class MyFrame extends JFrame implements ActionListener {
         this.add(jib);
 
         addMovie = new AddMovie();
-
         setButtons();
 
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        exit();
+
         centreOnScreen();
         setVisible(true);
+    }
+
+    private void exit() {
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent event) {
+                for (Event next : EventLog.getInstance()) {
+                    System.out.println(next.toString());
+                }
+            }
+        });
     }
 
     // MODIFIES: this

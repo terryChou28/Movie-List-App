@@ -65,6 +65,7 @@ public class MovieListApp {
         System.out.println("\ts -> save movie list to file");
         System.out.println("\tl -> load movie list from file");
         System.out.println("\tq -> quit");
+        System.out.println();
     }
 
     // MODIFIES: this
