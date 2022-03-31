@@ -25,3 +25,16 @@ The JsonSerializationDemo app is used as a reference for this project
 https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 The ListDemo app is used as a reference for this project
 https://docs.oracle.com/javase/tutorial/displayCode.html?code=https://docs.oracle.com/javase/tutorial/uiswing/examples/components/ListDemoProject/src/components/ListDemo.java
+
+Phase 4: Task 2
+- Wed Mar 30 16:33:34 PDT 2022
+- Movie added to movie list
+- Wed Mar 30 16:36:35 PDT 2022
+- Movie added to movie list
+- Wed Mar 30 16:37:50 PDT 2022
+- Movie added to movie list
+- Wed Mar 30 16:38:37 PDT 2022
+- Movie removed from movie list
+
+Phase 4 :Task3
+
