@@ -1,20 +1,14 @@
 {"movieList": [
     {
-        "rottenTomatoesRating": 93,
+        "rottenTomatoesRating": 343,
         "rating": 0,
-        "boxOffice": 1744,
-        "title": "Spider-Man: No Way Home"
+        "boxOffice": 3434,
+        "title": "batman"
     },
     {
-        "rottenTomatoesRating": 94,
+        "rottenTomatoesRating": 343,
         "rating": 0,
-        "boxOffice": 2798,
-        "title": "Avengers: Endgame"
-    },
-    {
-        "rottenTomatoesRating": 59,
-        "rating": 0,
-        "boxOffice": 762,
-        "title": "F9"
+        "boxOffice": 3434,
+        "title": "batmans"
     }
 ]}
